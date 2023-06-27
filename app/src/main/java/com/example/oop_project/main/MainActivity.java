@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.oop_project.Posts;
+import com.example.oop_project.Post;
 import com.example.oop_project.R;
 import com.example.oop_project.model.Confession;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,7 +29,7 @@ public class MainActivity extends Fragment {
     private View mView;
     private FirebaseFirestore db;
     private List<Confession> confessions;
-    private Posts posts;
+    private Post posts;
     private RecyclerView recyclerView;
     public MainActivity() {
 
@@ -65,9 +65,11 @@ public class MainActivity extends Fragment {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Confession confession = new Confession((String) document.getData().get("email"),
                                         (String) document.getData().get("confession"), (boolean) document.getData().get("anon"),
-                                        new java.sql.Timestamp((document.getTimestamp("time").toDate()).getTime()));
+                                        ((Long) document.getData().get("likes")).intValue(), ((Long) document.getData().get("dislikes")).intValue(),
+                                        new java.sql.Timestamp((document.getTimestamp("time").toDate()).getTime()),
+                                        document.getId());
                                 confessions.add(confession);
-                                posts = new Posts(getActivity(), confessions);
+                                posts = new Post(getActivity(), confessions);
                                 recyclerView.setAdapter(posts);
                             }
                         } else {

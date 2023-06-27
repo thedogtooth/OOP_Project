@@ -5,25 +5,27 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oop_project.model.Confession;
-import com.google.type.DateTime;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
-public class Posts extends RecyclerView.Adapter<com.example.oop_project.Posts.MyHolder>{
-    Context context;
-    List<Confession> confessions;
+public class Post extends RecyclerView.Adapter<com.example.oop_project.Post.MyHolder>{
+    private Context context;
+    private List<Confession> confessions;
+    private View view;
 
-    public Posts(Context context, List<Confession> confessions) {
+    public Post(Context context, List<Confession> confessions) {
         this.context = context;
         this.confessions = confessions;
     }
@@ -31,7 +33,7 @@ public class Posts extends RecyclerView.Adapter<com.example.oop_project.Posts.My
     @NonNull
     @Override
     public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.row_posts, parent, false);
+        view = LayoutInflater.from(context).inflate(R.layout.row_posts, parent, false);
         if (confessions.size() != 0) {
             CardView cardView = view.findViewById(R.id.cardView);
             cardView.setVisibility(View.VISIBLE);
@@ -41,6 +43,8 @@ public class Posts extends RecyclerView.Adapter<com.example.oop_project.Posts.My
 
     @Override
     public void onBindViewHolder(@NonNull final MyHolder holder, int position) {
+        ToggleButton likeButton = (ToggleButton) view.findViewById(R.id.like);
+        ToggleButton dislikeButton = (ToggleButton) view.findViewById(R.id.dislike);
         if (!confessions.get(position).isAnon()) {
             String nameHolder = confessions.get(position).getEmail();
             holder.name.setText(nameHolder);
@@ -54,6 +58,40 @@ public class Posts extends RecyclerView.Adapter<com.example.oop_project.Posts.My
 
         holder.time.setText(timeOnScreen);
         holder.confession.setText(confessionHolder);
+
+        int likesVsDislikes = confessions.get(position).getLikes() - confessions.get(position).getDislikes();
+        holder.likeDislike.setText("Likes: " + likesVsDislikes);
+
+        likeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (dislikeButton.isChecked()) {
+                    dislikeButton.setChecked(false);
+                    confessions.get(position).setDislikes(confessions.get(position).getDislikes() - 1);
+                } if (likeButton.isChecked()) {
+                    confessions.get(position).setLikes(confessions.get(position).getLikes() + 1);
+                } else {
+                    confessions.get(position).setLikes(confessions.get(position).getLikes() - 1);
+                }
+                int likesVsDislikes = confessions.get(position).getLikes() - confessions.get(position).getDislikes();
+                holder.likeDislike.setText("Likes: " + likesVsDislikes);
+            }
+        });
+        dislikeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (likeButton.isChecked()) {
+                    likeButton.setChecked(false);
+                    confessions.get(position).setLikes(confessions.get(position).getLikes() - 1);
+                } if (dislikeButton.isChecked()) {
+                    confessions.get(position).setDislikes(confessions.get(position).getDislikes() + 1);
+                } else {
+                    confessions.get(position).setDislikes(confessions.get(position).getDislikes() - 1);
+                }
+                int likesVsDislikes = confessions.get(position).getLikes() - confessions.get(position).getDislikes();
+                holder.likeDislike.setText("Likes: " + likesVsDislikes);
+            }
+        });
     }
 
     private String differenceTime(Timestamp then) {
@@ -90,13 +128,14 @@ public class Posts extends RecyclerView.Adapter<com.example.oop_project.Posts.My
     }
 
     class MyHolder extends RecyclerView.ViewHolder {
-        TextView name, time, confession, like;
+        TextView name, time, confession, likeDislike;
 
         public MyHolder(@NonNull View itemView) {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.usernameTextView);
             time = (TextView) itemView.findViewById(R.id.timeTextView);
             confession = (TextView) itemView.findViewById(R.id.confessionTextView);
+            likeDislike = (TextView) itemView.findViewById(R.id.likes_dislikes);
         }
     }
 }
