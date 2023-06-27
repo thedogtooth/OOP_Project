@@ -47,4 +47,12 @@
     <string name="time">Tiempo</string>
     <string name="confessionText">Confesión</string>
     <string name="likes_dislikes">Likes/Dislikes</string>
+
+    <string-array name="sedes">
+        <item>Casa Central</item>
+        <item>San Joaquín</item>
+        <item>Vitacura</item>
+        <item>Viña del Mar</item>
+        <item>Concepción</item>
+    </string-array>
 </resources>

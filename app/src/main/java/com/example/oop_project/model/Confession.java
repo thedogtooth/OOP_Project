@@ -33,7 +33,7 @@ public class Confession {
         this.time = time;
         db = FirebaseFirestore.getInstance();
     }
-
+    // poner un select para especificar de dónde es el usuario
     public Confession(String email, String confession, boolean isAnon, int likes, int dislikes, Timestamp time, String document) {
         this.email = email;
         this.confession = confession;

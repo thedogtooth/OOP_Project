@@ -3,6 +3,7 @@ package com.example.oop_project.model;
 public class User {
     private String email;
     private int phone;
+    private String campus;
     private String password;
     private String username;
 
@@ -15,9 +16,10 @@ public class User {
         this.password = password;
     }
 
-    public User(String email, int phone, String username){
+    public User(String email, int phone, String campus, String username){
         this.email = email;
         this.phone = phone;
+        this.campus = campus;
         this.username = username;
     }
 
@@ -33,6 +35,12 @@ public class User {
     }
     public int getPhone() {return phone;}
     public void setPhone(int phone) {this.phone = phone;}
+    public String getCampus() {
+        return campus;
+    }
+    public void setCampus(String campus) {
+        this.campus = campus;
+    }
     public String getPassword() {
         return password;
     }
