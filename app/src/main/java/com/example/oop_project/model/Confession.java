@@ -42,6 +42,7 @@ public class Confession {
         this.dislikes = dislikes;
         this.time = time;
         this.document = document;
+        db = FirebaseFirestore.getInstance();
     }
 
     public String getEmail() {
@@ -76,17 +77,13 @@ public class Confession {
     }
     public void setLikes(int likes) {
         this.likes = likes;
-        db.collection("confessions").document(getDocument())
-                .update(
-                        "likes", this.likes
-                );
+        db.collection("confessions").document(getDocument()).update(
+                "likes", this.likes);
     }
     public void setDislikes(int dislikes) {
         this.dislikes = dislikes;
-        db.collection("confessions").document(getDocument())
-                .update(
-                        "dislikes", this.dislikes
-                );
+        db.collection("confessions").document(getDocument()).update(
+                "dislikes", this.dislikes);
     }
     public void setTime(Timestamp time) {
         this.time = time;

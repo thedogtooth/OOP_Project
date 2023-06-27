@@ -64,13 +64,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/likes_dislikes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/likes_dislikes"
-                android:textColor="@color/black" />
-
             <!-- <TextView
                 android:id="@+id/pcommentco"
                 android:layout_width="match_parent"
@@ -100,6 +93,7 @@
                 android:textOn=""
                 android:textOff=""
                 android:background="@drawable/toggle_like" />
+
             <ToggleButton
                 android:id="@+id/dislike"
                 android:layout_width="30dp"
@@ -110,6 +104,14 @@
                 android:background="@drawable/toggle_dislike" />
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/likes_dislikes"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/likes_dislikes"
+            android:textColor="@color/black" />
 
     </LinearLayout>
 
