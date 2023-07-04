@@ -1,11 +1,14 @@
+/**
+ * Clase para mostrar cada confesión en el feed.
+ * @author Renato Burgos Hidalgo
+ */
+
 package com.example.oop_project;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -20,16 +23,37 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
-public class Post extends RecyclerView.Adapter<com.example.oop_project.Post.MyHolder>{
+public class Post extends RecyclerView.Adapter<com.example.oop_project.Post.MyHolder> {
+    /**
+     * El contexto corresponde en este caso a la actividad que llama al objeto, es decir, MainActivity.
+     */
     private Context context;
+    /**
+     * Lista de confesiones.
+     */
     private List<Confession> confessions;
+    /**
+     * Vista actual.
+     */
     private View view;
 
+    /**
+     * Constructor de la clase. Se establecen las variables context y confessions.
+     * @param context MainActivity en este caso.
+     * @param confessions la lista con confesiones.
+     */
     public Post(Context context, List<Confession> confessions) {
         this.context = context;
         this.confessions = confessions;
     }
 
+    /**
+     *
+     * @param parent
+     * @param viewType
+     *
+     * @return una instancia de MyHolder.
+     */
     @NonNull
     @Override
     public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -41,6 +65,11 @@ public class Post extends RecyclerView.Adapter<com.example.oop_project.Post.MyHo
         return new MyHolder(view);
     }
 
+    /**
+     *
+     * @param holder el holder con los campos de texto a cambiar.
+     * @param position la posición del item en la vista.
+     */
     @Override
     public void onBindViewHolder(@NonNull final MyHolder holder, int position) {
         ToggleButton likeButton = (ToggleButton) view.findViewById(R.id.like);
@@ -94,6 +123,11 @@ public class Post extends RecyclerView.Adapter<com.example.oop_project.Post.MyHo
         });
     }
 
+    /**
+     * Para tener la fecha o diferencia de tiempo entre el tiempo actual y uno anterior.
+     * @param then tiempo a comparar con el actual.
+     * @return un string que se desplegará en el post.
+     */
     private String differenceTime(Timestamp then) {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -122,11 +156,18 @@ public class Post extends RecyclerView.Adapter<com.example.oop_project.Post.MyHo
         }
     }
 
+    /**
+     * Este método es necesario aunque no se ocupa.
+     * @return la cantidad de confesiones.
+     */
     @Override
     public int getItemCount() {
         return confessions.size();
     }
 
+    /**
+     * Nueva clase que guarda los campos de texto a cambiar de acuerdo a cada post.
+     */
     class MyHolder extends RecyclerView.ViewHolder {
         TextView name, time, confession, likeDislike;
 

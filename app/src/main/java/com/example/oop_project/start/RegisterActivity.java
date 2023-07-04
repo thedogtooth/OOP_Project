@@ -1,3 +1,7 @@
+/**
+ * Clase para crear un nuevo usuario.
+ * @author Renato Burgos Hidalgo
+ */
 package com.example.oop_project.start;
 
 import android.content.Intent;
@@ -26,10 +30,23 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class RegisterActivity extends AppCompatActivity {
+    /**
+     * Para seleccionar entre varias opciones predeterminadas. La opción inicial es "Casa Central".
+     */
     private Spinner dropdown;
+    /**
+     * Se conecta a la base de datos de Firestore.
+     */
     private FirebaseFirestore db;
+    /**
+     * Para inicializar una nueva sesión en la aplicación, además de guardar los datos del usuario en la sección Authentication.
+     */
     private FirebaseAuth mAuth;
 
+    /**
+     * Método inicial cuando se abre la actividad
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +62,10 @@ public class RegisterActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
     }
 
+    /**
+     * Ocurre cuando se presiona el botón para registrarse.
+     * @param view
+     */
     public void register(View view){
         EditText username = (EditText) findViewById(R.id.registerUsername);
         EditText email = (EditText) findViewById(R.id.registerEmail);
@@ -96,6 +117,11 @@ public class RegisterActivity extends AppCompatActivity {
         // startActivity(register);
     }
 
+    /**
+     * Se verifica si lo que el usuario ingresa como correo es válido.
+     * @param email correo ingresado.
+     * @return verdadero si es válido o falso si no.
+     */
     public boolean isValidEmailAddress(String email) {
         String ePattern = "^.+@.+\\..+$";
         java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);

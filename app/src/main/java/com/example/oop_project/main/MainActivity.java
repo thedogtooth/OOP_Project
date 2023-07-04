@@ -1,3 +1,7 @@
+/**
+ * Clase del feed.
+ * @author Renato Burgos Hidalgo
+ */
 package com.example.oop_project.main;
 
 import androidx.annotation.NonNull;
@@ -10,14 +14,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.oop_project.Post;
 import com.example.oop_project.R;
 import com.example.oop_project.model.Confession;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -26,21 +28,50 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends Fragment {
+    /**
+     * Vista actual del fragmento.
+     */
     private View mView;
+    /**
+     * Instancia de la base de datos.
+     */
     private FirebaseFirestore db;
+    /**
+     * Lista de las confesiones a mostrar.
+     */
     private List<Confession> confessions;
-    private Post posts;
+    /**
+     * Para crear y asignar posts.
+     */
+    private Post post;
+    /**
+     * Para mostrar los posts.
+     */
     private RecyclerView recyclerView;
+
+    /**
+     * Constructor de la clase.
+     */
     public MainActivity() {
 
     }
 
+    /**
+     * Método que se llama cada vez que empieza el fragmento.
+     * @param savedInstanceState Si el fragmento es creado nuevamente desde un estado previo, este es el estado.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // setContentView(R.layout.activity_main);
     }
 
+    /**
+     * Similar a onCreate pero para fragmentos.
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return la vista del fragmento.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.main_activity, container, false);
@@ -54,6 +85,9 @@ public class MainActivity extends Fragment {
         return mView;
     }
 
+    /**
+     * Para cargar los posts.
+     */
     private void loadPosts() {
         db.collection("confessions")
                 .get()
@@ -69,8 +103,8 @@ public class MainActivity extends Fragment {
                                         new java.sql.Timestamp((document.getTimestamp("time").toDate()).getTime()),
                                         document.getId());
                                 confessions.add(confession);
-                                posts = new Post(getActivity(), confessions);
-                                recyclerView.setAdapter(posts);
+                                post = new Post(getActivity(), confessions);
+                                recyclerView.setAdapter(post);
                             }
                         } else {
                             Log.d("error", "Error getting documents: ", task.getException());

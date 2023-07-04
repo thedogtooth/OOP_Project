@@ -1,30 +1,60 @@
+/**
+ * Clase que guarda los atributos de una confesión.
+ * @author Renato Burgos Hidalgo
+ */
 package com.example.oop_project.model;
 
-import android.util.Log;
-
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 public class Confession {
+    /**
+     * Texto de cada confesión.
+     */
     private String confession;
+    /**
+     * Email de quien creó la confesión.
+     */
     private String email;
+    /**
+     * El estado de una confesión. Si es anónima o no.
+     */
     private boolean isAnon;
+    /**
+     * El número de likes de cada confesión.
+     */
     private int likes;
+    /**
+     * El número de dislikes de cada confesión.
+     */
     private int dislikes;
+    /**
+     * Fecha en que cada confesión fue publicada.
+     */
     private Timestamp time;
+    /**
+     * Para tener acceso al nombre del documento en cada objeto.
+     */
     private String document;
+    /**
+     * Instancia para operar sobre la base de datos.
+     */
     private FirebaseFirestore db;
 
+    /**
+     * Constructor vacío. Al parecer es importante.
+     */
     public Confession() {
 
     }
 
+    /**
+     * Constructor para crear las confesiones.
+     * @param email
+     * @param confession
+     * @param isAnon
+     * @param time
+     */
     public Confession(String email, String confession, boolean isAnon, Timestamp time) {
         this.email = email;
         this.confession = confession;
@@ -33,7 +63,17 @@ public class Confession {
         this.time = time;
         db = FirebaseFirestore.getInstance();
     }
-    // poner un select para especificar de dónde es el usuario
+
+    /**
+     * Constructor para obtener las confesiones en MainActivity.
+     * @param email
+     * @param confession
+     * @param isAnon
+     * @param likes
+     * @param dislikes
+     * @param time
+     * @param document
+     */
     public Confession(String email, String confession, boolean isAnon, int likes, int dislikes, Timestamp time, String document) {
         this.email = email;
         this.confession = confession;
@@ -75,11 +115,21 @@ public class Confession {
     public void setAnon(boolean isAnon) {
         this.isAnon = isAnon;
     }
+
+    /**
+     * Establece el número de likes en el objeto y en Firebase.
+     * @param likes número de likes. Se va sumando de uno en uno.
+     */
     public void setLikes(int likes) {
         this.likes = likes;
         db.collection("confessions").document(getDocument()).update(
                 "likes", this.likes);
     }
+
+    /**
+     * Establece el número de dislikes en el objeto y en Firebase.
+     * @param dislikes número de dislikes. Se va sumando de uno en uno.
+     */
     public void setDislikes(int dislikes) {
         this.dislikes = dislikes;
         db.collection("confessions").document(getDocument()).update(

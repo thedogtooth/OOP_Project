@@ -1,3 +1,7 @@
+/**
+ * Clase para iniciar sesión.
+ * @author Renato Burgos Hidalgo
+ */
 package com.example.oop_project.start;
 
 import android.content.Intent;
@@ -21,9 +25,18 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
+    /**
+     * Clase inicial si es que no hay una sesión iniciada.
+     * @param mAuth se conecta a Firebase para ver si hay una conexión actual.
+     * @param homeActivity para comenzar la actividad con los 3 fragmentos.
+     */
     private FirebaseAuth mAuth;
     private Intent homeActivity;
 
+    /**
+     * Método inicial cuando se abre la actividad.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +46,9 @@ public class LoginActivity extends AppCompatActivity {
         homeActivity = new Intent(LoginActivity.this, HomeActivity.class);
     }
 
+    /**
+     * Método que ocurre después de onCreate(). Si se sale de la aplicación pero no se cierra ocurre este método.
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -42,6 +58,10 @@ public class LoginActivity extends AppCompatActivity {
         } else Log.i("chao", "no hay sesion");
     }
 
+    /**
+     * Ocurre cuando se aprieta el botón "Iniciar sesión".
+     * @param view
+     */
     public void login(View view){
         EditText email = (EditText) findViewById(R.id.loginEmail);
         EditText password = (EditText) findViewById(R.id.loginPassword);
@@ -78,11 +98,18 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(),"Próximamente",Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Para registrar un nuevo usuario.
+     * @param view
+     */
     public void register(View view) {
         Intent register = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(register);
     }
 
+    /**
+     * Este método ocurre cuando alguien quiere volver atrás en esta actividad. Se cierra la aplicación en este caso.
+     */
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(Intent.ACTION_MAIN);

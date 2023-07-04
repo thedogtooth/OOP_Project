@@ -1,3 +1,7 @@
+/**
+ * Fragmento que muestra el perfil del usuario.
+ * @author Renato Burgos Hidalgo
+ */
 package com.example.oop_project.main;
 
 import androidx.annotation.NonNull;
@@ -19,26 +23,45 @@ import com.example.oop_project.R;
 import com.example.oop_project.start.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class ProfileActivity extends Fragment {
+    /**
+     * Vista del fragmento.
+     */
     private View mView;
+    /**
+     * Nombre de usuario.
+     */
     private String username;
+    /**
+     * Se despliega el nombre del usuario.
+     */
     private TextView userTextView;
+    /**
+     * Usuario logueado actualmente.
+     */
     private FirebaseUser user;
+    /**
+     * Instancia de la base de datos.
+     */
     private FirebaseFirestore db;
+
+    /**
+     * Constructor del fragmento
+     */
     public ProfileActivity() {
 
     }
 
+    /**
+     * Método que se llama cada vez que empieza el fragmento.
+     * @param savedInstanceState Si el fragmento es creado nuevamente desde un estado previo, este es el estado.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +95,13 @@ public class ProfileActivity extends Fragment {
         }
     }
 
+    /**
+     * Similar a onCreate pero para fragmentos.
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return la vista del fragmento.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -89,6 +119,9 @@ public class ProfileActivity extends Fragment {
         return mView;
     }
 
+    /**
+     * Método para cerrar sesión.
+     */
     private void signOut() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
