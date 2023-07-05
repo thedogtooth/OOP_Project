@@ -28,16 +28,17 @@ import com.google.firebase.auth.FirebaseUser;
  */
 public class LoginActivity extends AppCompatActivity {
     /**
-     * Clase inicial si es que no hay una sesión iniciada.
-     * @param mAuth se conecta a Firebase para ver si hay una conexión actual.
-     * @param homeActivity para comenzar la actividad con los 3 fragmentos.
+     * Se conecta a Firebase para ver si hay una conexión actual.
      */
     private FirebaseAuth mAuth;
+    /**
+     * Para comenzar la actividad con los 3 fragmentos.
+     */
     private Intent homeActivity;
 
     /**
      * Método inicial cuando se abre la actividad.
-     * @param savedInstanceState
+     * @param savedInstanceState Si la actividad es creada nuevamente desde un estado previo, este es el estado.
      */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

@@ -46,8 +46,8 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     /**
-     * Método inicial cuando se abre la actividad
-     * @param savedInstanceState
+     * Método inicial cuando se abre la actividad.
+     * @param savedInstanceState Si la actividad es creada nuevamente desde un estado previo, este es el estado.
      */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,7 +66,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     /**
      * Ocurre cuando se presiona el botón para registrarse.
-     * @param view
+     * @param view Vista actual de la actividad.
      */
     public void register(View view){
         EditText username = (EditText) findViewById(R.id.registerUsername);
