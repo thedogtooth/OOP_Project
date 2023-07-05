@@ -1,5 +1,4 @@
 /**
- * Clase del feed.
  * @author Renato Burgos Hidalgo
  */
 package com.example.oop_project.main;
@@ -27,6 +26,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Fragmento del feed.
+ */
 public class MainActivity extends Fragment {
     /**
      * Vista actual del fragmento.

@@ -1,5 +1,4 @@
 /**
- * Clase para crear un nuevo usuario.
  * @author Renato Burgos Hidalgo
  */
 package com.example.oop_project.start;
@@ -29,6 +28,9 @@ import com.example.oop_project.model.User;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+/**
+ * Clase para crear un nuevo usuario.
+ */
 public class RegisterActivity extends AppCompatActivity {
     /**
      * Para seleccionar entre varias opciones predeterminadas. La opción inicial es "Casa Central".

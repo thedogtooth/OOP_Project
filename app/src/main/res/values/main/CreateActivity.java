@@ -1,7 +1,8 @@
 /**
+ * Fragmento para crear confesiones.
  * @author Renato Burgos Hidalgo
  */
-package com.example.oop_project.main;
+package values.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,9 +29,6 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-/**
- * Fragmento para crear confesiones.
- */
 public class CreateActivity extends Fragment {
     /**
      * Email a obtener del usuario actual.

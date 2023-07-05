@@ -1,7 +1,8 @@
 /**
+ * Fragmento que muestra el perfil del usuario.
  * @author Renato Burgos Hidalgo
  */
-package com.example.oop_project.main;
+package values.main;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -28,9 +29,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-/**
- * Fragmento que muestra el perfil del usuario.
- */
 public class ProfileActivity extends Fragment {
     /**
      * Vista del fragmento.

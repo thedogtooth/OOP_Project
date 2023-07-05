@@ -1,5 +1,4 @@
 /**
- * Clase para mostrar cada confesión en el feed.
  * @author Renato Burgos Hidalgo
  */
 
@@ -23,6 +22,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
+/**
+ * Clase para mostrar cada confesión en el feed.
+ */
 public class Post extends RecyclerView.Adapter<com.example.oop_project.Post.MyHolder> {
     /**
      * El contexto corresponde en este caso a la actividad que llama al objeto, es decir, MainActivity.

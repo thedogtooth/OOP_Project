@@ -1,5 +1,4 @@
 /**
- * Clase que guarda los atributos de una confesión.
  * @author Renato Burgos Hidalgo
  */
 package com.example.oop_project.model;
@@ -7,6 +6,9 @@ package com.example.oop_project.model;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.sql.Timestamp;
 
+/**
+ * Clase que guarda los atributos de una confesión.
+ */
 public class Confession {
     /**
      * Texto de cada confesión.

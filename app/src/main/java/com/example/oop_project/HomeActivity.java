@@ -1,5 +1,4 @@
 /**
- * Clase que muestra la barra inferior de la aplicación
  * @author Renato Burgos Hidalgo
  */
 package com.example.oop_project;
@@ -24,6 +23,9 @@ import android.widget.Toast;
 
 import java.util.List;
 
+/**
+ * Clase que muestra la barra inferior de la aplicación
+ */
 public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     /**
      * Actividad con las confesiones. Feed de la aplicación.

@@ -1,9 +1,11 @@
 /**
- * Clase para establecer cada usuario de la aplicación.
  * @author Renato Burgos Hidalgo
  */
 package com.example.oop_project.model;
 
+/**
+ * Clase para establecer cada usuario de la aplicación.
+ */
 public class User {
     /**
      * Email del usuario.

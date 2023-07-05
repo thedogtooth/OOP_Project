@@ -1,5 +1,4 @@
 /**
- * Clase para iniciar sesión.
  * @author Renato Burgos Hidalgo
  */
 package com.example.oop_project.start;
@@ -24,6 +23,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+/**
+ * Clase para iniciar sesión.
+ */
 public class LoginActivity extends AppCompatActivity {
     /**
      * Clase inicial si es que no hay una sesión iniciada.
