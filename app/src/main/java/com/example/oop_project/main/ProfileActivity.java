@@ -4,6 +4,7 @@
 package com.example.oop_project.main;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.app.AlertDialog;
@@ -82,7 +83,6 @@ public class ProfileActivity extends Fragment {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     if (email.equals(document.getData().get("email"))) {
                                         username = (String) document.getData().get("username");
-                                        userTextView = (TextView) mView.findViewById(R.id.nameTextView);
                                         userTextView.setText(username);
                                     }
                                 }
@@ -91,10 +91,25 @@ public class ProfileActivity extends Fragment {
                             }
                         }
                     });
-
-            //String uid = user.getUid();
-            //Log.i("UID", uid);
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (username != null) {
+            userTextView.setText(username);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
     }
 
     /**
@@ -109,6 +124,7 @@ public class ProfileActivity extends Fragment {
                              Bundle savedInstanceState) {
 
         mView = inflater.inflate(R.layout.profile_activity, container, false);
+        userTextView = (TextView) mView.findViewById(R.id.nameTextView);
 
         Button button = (Button) mView.findViewById(R.id.signOut);
         button.setOnClickListener(new View.OnClickListener() {

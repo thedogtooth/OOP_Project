@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.oop_project.main.CreateActivity;
 import com.example.oop_project.main.MainActivity;
@@ -85,9 +84,8 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
      * @param fragment fragmento seleccionado en el método anterior.
      */
     public void loadFragment(Fragment fragment){
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_home, fragment);
-        transaction.commit();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.frame_home, fragment, null).setReorderingAllowed(true).addToBackStack("").commit();
     }
 
     /**

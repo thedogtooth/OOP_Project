@@ -65,6 +65,9 @@ public class MainActivity extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        confessions = new ArrayList<>();
+        db = FirebaseFirestore.getInstance();
+        loadPosts();
     }
 
     /**
@@ -80,11 +83,16 @@ public class MainActivity extends Fragment {
         recyclerView = mView.findViewById(R.id.postrecyclerview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        confessions = new ArrayList<>();
-
-        db = FirebaseFirestore.getInstance();
-        loadPosts();
         return mView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (!confessions.isEmpty()) {
+            post = new Post(getActivity(), confessions);
+            recyclerView.setAdapter(post);
+        }
     }
 
     /**
@@ -107,6 +115,9 @@ public class MainActivity extends Fragment {
                                 confessions.add(confession);
                                 post = new Post(getActivity(), confessions);
                                 recyclerView.setAdapter(post);
+                            }
+                            if (confessions.isEmpty()) {
+                                Log.i("Hola", "No hay confesiones :(");
                             }
                         } else {
                             Log.d("error", "Error getting documents: ", task.getException());

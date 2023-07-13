@@ -106,6 +106,9 @@ public class CreateActivity extends Fragment {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         EditText text = (EditText) mView.findViewById(R.id.editText);
+        if (checkBox.isChecked()) {
+            email = null;
+        }
         Confession confession = new Confession(email, text.getText().toString(), checkBox.isChecked(),
                 Timestamp.valueOf(dateFormat.format(calendar.getTime())));
         db.collection("confessions")
