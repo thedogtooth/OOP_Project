@@ -11,13 +11,18 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.renderscript.ScriptGroup;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.oop_project.R;
 import com.example.oop_project.start.LoginActivity;
@@ -67,6 +72,7 @@ public class ProfileActivity extends Fragment {
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
         user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseFirestore.getInstance();
@@ -103,11 +109,6 @@ public class ProfileActivity extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
     }
@@ -122,7 +123,7 @@ public class ProfileActivity extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        setHasOptionsMenu(true);
         mView = inflater.inflate(R.layout.profile_activity, container, false);
         userTextView = (TextView) mView.findViewById(R.id.nameTextView);
 
@@ -135,6 +136,30 @@ public class ProfileActivity extends Fragment {
         });
 
         return mView;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        Log.i("Hola", "ho");
+        inflater.inflate(R.menu.profile_menu, menu);
+        return;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //handle menu item clicks
+        int id = item.getItemId();
+
+        if (id == R.id.action_favorite) {
+            //do your function here
+            Toast.makeText(getActivity(), "Settings", Toast.LENGTH_SHORT).show();
+        }
+        if (id == R.id.action_second) {
+            //do your function here
+            Toast.makeText(getActivity(), "Sort", Toast.LENGTH_SHORT).show();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     /**
