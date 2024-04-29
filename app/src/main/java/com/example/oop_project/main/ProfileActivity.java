@@ -141,7 +141,7 @@ public class ProfileActivity extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         Log.i("Hola", "ho");
-        inflater.inflate(R.menu.profile_menu, menu);
+        //inflater.inflate(R.menu.profile_menu, menu);
         return;
     }
 
@@ -150,14 +150,14 @@ public class ProfileActivity extends Fragment {
         //handle menu item clicks
         int id = item.getItemId();
 
-        if (id == R.id.action_favorite) {
+        /*if (id == R.id.action_favorite) {
             //do your function here
             Toast.makeText(getActivity(), "Settings", Toast.LENGTH_SHORT).show();
         }
         if (id == R.id.action_second) {
             //do your function here
             Toast.makeText(getActivity(), "Sort", Toast.LENGTH_SHORT).show();
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
