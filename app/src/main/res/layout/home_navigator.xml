@@ -2,16 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/firstActivity"
-        android:icon="@android:drawable/ic_menu_edit"
-        android:title="@string/inicio"/>
+        android:icon="@drawable/home_24dp"
+        android:title="@string/start"/>
 
     <item
         android:id="@+id/secondActivity"
-        android:icon="@android:drawable/ic_menu_add"
-        android:title="@string/crear" />
+        android:icon="@drawable/add_circle_24dp"
+        android:title="@string/create" />
 
     <item
         android:id="@+id/thirdActivity"
-        android:icon="@android:drawable/ic_menu_agenda"
-        android:title="@string/perfil"/>
+        android:icon="@drawable/account_circle_24dp"
+        android:title="@string/profile"/>
 </menu>

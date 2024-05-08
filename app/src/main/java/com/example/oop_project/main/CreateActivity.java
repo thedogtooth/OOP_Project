@@ -5,6 +5,7 @@ package com.example.oop_project.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -106,6 +107,10 @@ public class CreateActivity extends Fragment {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         EditText text = (EditText) mView.findViewById(R.id.editText);
+        if (text.getText().toString().matches("")) {
+            Toast.makeText(getActivity(), R.string.emptyConfession, Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (checkBox.isChecked()) {
             email = null;
         }

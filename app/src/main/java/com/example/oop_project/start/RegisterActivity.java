@@ -56,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         dropdown = findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.sedes, android.R.layout.simple_spinner_item);
+                R.array.headquarters, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dropdown.setAdapter(adapter);
 

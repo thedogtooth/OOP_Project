@@ -143,7 +143,7 @@ public class Post extends RecyclerView.Adapter<com.example.oop_project.Post.MyHo
         } if (diff/3600 < 24) {
             return "Hace " + diff/3600 + " h.";
         } if ((int) (diff / 86400) == 1) {
-            return "Ayer";
+            return context.getString(R.string.yesterday);
         } if ((int) (diff /86400) >= 2 && (int) (diff/86400) < 7) {
             return "Hace " + (int) (diff/86400) + " d.";
         }

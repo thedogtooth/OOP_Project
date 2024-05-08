@@ -14,9 +14,8 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:title="Feed"/>
+            android:theme="@style/Toolbar"
+            app:title="Feed" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/postrecyclerview"

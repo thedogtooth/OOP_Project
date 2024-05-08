@@ -26,8 +26,10 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_gravity="center_horizontal|bottom"
-            android:text="@string/community"
-            style="@style/TextoNaranjoTitulo"
+            android:textColor="@color/primaryColor"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:text="@string/appName"
             android:layout_marginBottom="7dp">
         </TextView>
 
@@ -37,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginHorizontal="24dp"
-            android:hint="E-mail"
+            android:hint="@string/email"
             android:id="@+id/login_emailLayout"
             app:startIconDrawable="@drawable/ic_baseline_email_24"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -47,14 +49,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:minHeight="48dp" />
+                android:minHeight="48dp"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Contraseña"
+            android:hint="@string/password"
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="10dp"
             android:id="@+id/login_passlayout"
@@ -74,7 +76,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/TextoNaranjoNormal"
             android:textAlignment="textEnd"
             android:layout_marginTop="5dp"
             android:layout_marginHorizontal="24dp"
@@ -95,9 +96,7 @@
                 android:onClick="login"
                 android:textAllCaps="false"
                 android:textSize="20sp"
-                android:background="@drawable/button_style1"
-
-                >
+                android:background="@drawable/button_style1">
 
             </androidx.appcompat.widget.AppCompatButton>
         <LinearLayout
@@ -111,15 +110,17 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textSize="20sp"
-                android:text="@string/nocuenta">
+                android:text="@string/noAccount">
             </TextView>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                style="@style/TextoNaranjoBold"
                 android:onClick="register"
-                android:text="@string/register">
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@color/primaryColor"
+                android:text="@string/signUp">
             </TextView>
         </LinearLayout>
 

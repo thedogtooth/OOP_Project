@@ -2,7 +2,8 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <corners android:radius="100dp"/>
     <gradient
-        android:startColor="#EC9F05"
-        android:endColor="#FF4E00">
+        android:startColor="@color/primaryColorLight"
+        android:endColor="@color/primaryColor">
     </gradient>
+    <stroke android:width="3dp" android:color="@color/primaryColorDark" />
 </shape>

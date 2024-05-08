@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="appName">OOP Project</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="forgotPass">Forgot Password?</string>
+    <string name="noAccount">Don\'t have an account?</string>
+    <string name="signUp">Sign Up</string>
+    <string name="username">Username</string>
+    <string name="phone">Phone</string>
+    <string name="registerButton">Sign Up</string>
+    <string name="score">Score</string>
+    <string name="comments">Comments</string>
+    <string name="start">Start</string>
+    <string name="create">Create</string>
+    <string name="profile">Profile</string>
+    <string name="signOut">Sign Out</string>
+    <string name="feed">Confessions</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="upload">Upload</string>
+    <string name="publish">Upload confession</string>
+    <string name="confession">Your confession</string>
+    <string name="anon">Upload anonymously</string>
+    <string name="likes">Likes</string>
+    <string name="time">Time</string>
+    <string name="confessionText">Confession</string>
+    <string name="likes_dislikes">Likes/Dislikes</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="repeatPassword">Repeat Password</string>
+    <string name="emptyConfession">Write somethin smh</string>
+
+    <string-array name="headquarters">
+        <item>Casa Central</item>
+        <item>San Joaquín</item>
+        <item>Vitacura</item>
+        <item>Viña del Mar</item>
+        <item>Concepción</item>
+    </string-array>
+</resources>

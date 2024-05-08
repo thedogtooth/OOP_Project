@@ -11,7 +11,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.renderscript.ScriptGroup;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -42,6 +41,7 @@ public class ProfileActivity extends Fragment {
      * Vista del fragmento.
      */
     private View mView;
+    private androidx.appcompat.widget.Toolbar toolbar;
     /**
      * Nombre de usuario.
      */
@@ -74,6 +74,7 @@ public class ProfileActivity extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
+
         user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseFirestore.getInstance();
         if (user != null) {
@@ -125,6 +126,8 @@ public class ProfileActivity extends Fragment {
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         mView = inflater.inflate(R.layout.profile_activity, container, false);
+        toolbar = mView.findViewById(R.id.toolbar);
+        toolbar.inflateMenu(R.menu.profile_top);
         userTextView = (TextView) mView.findViewById(R.id.nameTextView);
 
         Button button = (Button) mView.findViewById(R.id.signOut);

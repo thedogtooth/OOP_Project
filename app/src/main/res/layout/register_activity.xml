@@ -3,15 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/orangePrimary"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/registrate"
-        style="@style/TextoNaranjoTitulo"
-        android:textColor="@color/white"
+        android:text="@string/signUp"
+        android:textColor="@color/primaryColor"
+        android:textSize="40sp"
+        android:textStyle="bold"
         android:layout_marginTop="40dp"
         android:gravity="center_horizontal">
 
@@ -32,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 app:startIconDrawable="@drawable/ic_baseline_account_circle_24"
-                android:hint="Nombre de usuario"
+                android:hint="@string/username"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                 <EditText
                     android:id="@+id/registerUsername"
@@ -53,7 +54,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
-                    android:hint="e-mail">
+                    android:hint="@string/email">
                 </EditText>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -68,7 +69,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="phone"
-                    android:hint="Número de celular">
+                    android:hint="@string/phone">
                 </EditText>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -94,7 +95,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
-                    android:hint="Contraseña">
+                    android:hint="@string/password">
                 </EditText>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
@@ -109,7 +110,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
-                    android:hint="Repetir Contraseña">
+                    android:hint="@string/repeatPassword">
                 </EditText>
             </com.google.android.material.textfield.TextInputLayout>
 
