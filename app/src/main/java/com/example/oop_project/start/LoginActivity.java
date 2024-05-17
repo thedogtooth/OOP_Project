@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
             startActivity(homeActivity);
-        } else Log.i("chao", "no hay sesion");
+        } else Log.i("Signed Out", "Haven't logged in");
     }
 
     /**
@@ -66,18 +66,22 @@ public class LoginActivity extends AppCompatActivity {
      * @param view
      */
     public void login(View view){
-        EditText email = (EditText) findViewById(R.id.loginEmail);
-        EditText password = (EditText) findViewById(R.id.loginPassword);
+        EditText email = findViewById(R.id.loginEmail);
+        EditText password = findViewById(R.id.loginPassword);
         TextInputLayout emailLayout = findViewById(R.id.login_emailLayout);
         TextInputLayout passLayout = findViewById(R.id.login_passlayout);
 
-        if (email.getText().toString().isEmpty()){
-            emailLayout.setError("Ingrese un correo");
+        if (email.getText().toString().isEmpty()) {
+            emailLayout.setError(getString(R.string.noEmail));
             return;
+        } else {
+            emailLayout.setError(null);
         }
-        if (password.getText().toString().isEmpty()){
-            passLayout.setError("Ingrese una contraseña");
+        if (password.getText().toString().isEmpty()) {
+            passLayout.setError(getString(R.string.noPassword));
             return;
+        } else {
+            emailLayout.setError(null);
         }
         mAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -86,11 +90,11 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("si", "signInWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            mAuth.getCurrentUser();
                             startActivity(homeActivity);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast toast = Toast.makeText(LoginActivity.this, "Correo o contraseña inválidas", Toast.LENGTH_SHORT);
+                            Toast toast = Toast.makeText(LoginActivity.this, R.string.wrongLogin, Toast.LENGTH_SHORT);
                             toast.show();
                         }
                     }
@@ -119,6 +123,13 @@ public class LoginActivity extends AppCompatActivity {
         intent.addCategory(Intent.CATEGORY_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    public boolean isValidEmailAddress(String email) {
+        String ePattern = "^.+@.+\\..+$";
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
+        java.util.regex.Matcher m = p.matcher(email);
+        return m.matches();
     }
 
 }

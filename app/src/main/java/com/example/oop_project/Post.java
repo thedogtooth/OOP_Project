@@ -5,6 +5,7 @@
 package com.example.oop_project;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +17,16 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oop_project.model.Confession;
+import com.example.oop_project.model.Dislike;
+import com.example.oop_project.model.Like;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Clase para mostrar cada confesión en el feed.
@@ -38,6 +44,7 @@ public class Post extends RecyclerView.Adapter<com.example.oop_project.Post.MyHo
      * Vista actual.
      */
     private View view;
+    private FirebaseFirestore db;
 
     /**
      * Constructor de la clase. Se establecen las variables context y confessions.
@@ -47,20 +54,19 @@ public class Post extends RecyclerView.Adapter<com.example.oop_project.Post.MyHo
     public Post(Context context, List<Confession> confessions) {
         this.context = context;
         this.confessions = confessions;
+        db = HomeActivity.getDb();
     }
 
     /**
-     *
      * @param parent
      * @param viewType
-     *
      * @return una instancia de MyHolder.
      */
     @NonNull
     @Override
     public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         view = LayoutInflater.from(context).inflate(R.layout.row_posts, parent, false);
-        if (confessions.size() != 0) {
+        if (!confessions.isEmpty()) {
             CardView cardView = view.findViewById(R.id.cardView);
             cardView.setVisibility(View.VISIBLE);
         }
@@ -68,19 +74,18 @@ public class Post extends RecyclerView.Adapter<com.example.oop_project.Post.MyHo
     }
 
     /**
-     *
      * @param holder el holder con los campos de texto a cambiar.
      * @param position la posición del item en la vista.
      */
     @Override
     public void onBindViewHolder(@NonNull final MyHolder holder, int position) {
-        ToggleButton likeButton = (ToggleButton) view.findViewById(R.id.like);
-        ToggleButton dislikeButton = (ToggleButton) view.findViewById(R.id.dislike);
+        ToggleButton likeButton = view.findViewById(R.id.like);
+        ToggleButton dislikeButton = view.findViewById(R.id.dislike);
         if (!confessions.get(position).isAnon()) {
             String nameHolder = confessions.get(position).getEmail();
             holder.name.setText(nameHolder);
         } else {
-            holder.name.setText("Confesión anónima");
+            holder.name.setText(R.string.anonConfession);
         }
         String confessionHolder = confessions.get(position).getConfession();
         Timestamp timeHolder = confessions.get(position).getTime();
@@ -90,37 +95,69 @@ public class Post extends RecyclerView.Adapter<com.example.oop_project.Post.MyHo
         holder.time.setText(timeOnScreen);
         holder.confession.setText(confessionHolder);
 
-        int likesVsDislikes = confessions.get(position).getLikes() - confessions.get(position).getDislikes();
-        holder.likeDislike.setText("Likes: " + likesVsDislikes);
-
-        likeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (dislikeButton.isChecked()) {
-                    dislikeButton.setChecked(false);
-                    confessions.get(position).setDislikes(confessions.get(position).getDislikes() - 1);
-                } if (likeButton.isChecked()) {
-                    confessions.get(position).setLikes(confessions.get(position).getLikes() + 1);
-                } else {
-                    confessions.get(position).setLikes(confessions.get(position).getLikes() - 1);
+        db.collection("likes").whereEqualTo("post", confessions.get(position).getDocument())
+            .get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        if (Objects.equals(document.getData().get("email"), HomeActivity.getEmail())) {
+                            holder.likeDocument = document.getId();
+                            if (Objects.equals(document.getData().get("liked"), true)) {
+                                likeButton.setChecked(true);
+                                break;
+                            }
+                        }
+                    }
                 }
-                int likesVsDislikes = confessions.get(position).getLikes() - confessions.get(position).getDislikes();
-                holder.likeDislike.setText("Likes: " + likesVsDislikes);
+            });
+
+        db.collection("dislikes").whereEqualTo("post", confessions.get(position).getDocument())
+            .get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        if (Objects.equals(document.getData().get("email"), HomeActivity.getEmail())) {
+                            holder.dislikeDocument = document.getId();
+                            if (Objects.equals(document.getData().get("disliked"), true)) {
+                                dislikeButton.setChecked(true);
+                                break;
+                            }
+                        }
+                    }
+                    //holder.likeDislike.setText("Likes: " + likesVsDislikes);
+                }
+            });
+
+        likeButton.setOnClickListener(view -> {
+            if (dislikeButton.isChecked()) {
+                dislikeButton.setChecked(false);
+                db.collection("dislikes").document(holder.dislikeDocument).update("disliked", false);
+            } if (likeButton.isChecked()) {
+                if (holder.likeDocument != null) {
+                    db.collection("likes").document(holder.likeDocument).update("liked", true);
+                    return;
+                }
+                Timestamp time = new Timestamp(System.currentTimeMillis());
+                Like like = new Like(HomeActivity.getEmail(), confessions.get(position).getDocument(), time);
+                db.collection("likes").add(like)
+                        .addOnCompleteListener(task -> holder.likeDocument = task.getResult().getId());
+            } else {
+                db.collection("likes").document(holder.likeDocument).update("liked", false);
             }
         });
-        dislikeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (likeButton.isChecked()) {
-                    likeButton.setChecked(false);
-                    confessions.get(position).setLikes(confessions.get(position).getLikes() - 1);
-                } if (dislikeButton.isChecked()) {
-                    confessions.get(position).setDislikes(confessions.get(position).getDislikes() + 1);
-                } else {
-                    confessions.get(position).setDislikes(confessions.get(position).getDislikes() - 1);
+        dislikeButton.setOnClickListener(view -> {
+            if (likeButton.isChecked()) {
+                likeButton.setChecked(false);
+                db.collection("likes").document(holder.likeDocument).update("liked", false);
+            } if (dislikeButton.isChecked()) {
+                if (holder.dislikeDocument != null) {
+                    db.collection("dislikes").document(holder.dislikeDocument).update("disliked", true);
+                    return;
                 }
-                int likesVsDislikes = confessions.get(position).getLikes() - confessions.get(position).getDislikes();
-                holder.likeDislike.setText("Likes: " + likesVsDislikes);
+                Timestamp time = new Timestamp(System.currentTimeMillis());
+                Dislike dislike = new Dislike(HomeActivity.getEmail(), confessions.get(position).getDocument(), time);
+                db.collection("dislikes").add(dislike)
+                        .addOnCompleteListener(task -> holder.dislikeDocument = task.getResult().getId());
+            } else {
+                db.collection("dislikes").document(holder.dislikeDocument).update("disliked", false);
             }
         });
     }
@@ -170,15 +207,16 @@ public class Post extends RecyclerView.Adapter<com.example.oop_project.Post.MyHo
     /**
      * Nueva clase que guarda los campos de texto a cambiar de acuerdo a cada post.
      */
-    class MyHolder extends RecyclerView.ViewHolder {
+    static class MyHolder extends RecyclerView.ViewHolder {
         TextView name, time, confession, likeDislike;
+        String likeDocument, dislikeDocument;
 
         public MyHolder(@NonNull View itemView) {
             super(itemView);
-            name = (TextView) itemView.findViewById(R.id.usernameTextView);
-            time = (TextView) itemView.findViewById(R.id.timeTextView);
-            confession = (TextView) itemView.findViewById(R.id.confessionTextView);
-            likeDislike = (TextView) itemView.findViewById(R.id.likes_dislikes);
+            name = itemView.findViewById(R.id.usernameTextView);
+            time = itemView.findViewById(R.id.timeTextView);
+            confession = itemView.findViewById(R.id.confessionTextView);
+            likeDislike = itemView.findViewById(R.id.likes_dislikes);
         }
     }
 }

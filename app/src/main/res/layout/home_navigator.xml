@@ -6,9 +6,15 @@
         android:title="@string/start"/>
 
     <item
+        android:id="@+id/searchActivity"
+        android:icon="@drawable/search_24dp"
+        android:title="@string/search"/>
+
+    <item
         android:id="@+id/secondActivity"
         android:icon="@drawable/add_circle_24dp"
         android:title="@string/create" />
+
 
     <item
         android:id="@+id/thirdActivity"

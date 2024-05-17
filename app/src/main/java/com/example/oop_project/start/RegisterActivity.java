@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -33,10 +34,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
  */
 public class RegisterActivity extends AppCompatActivity {
     /**
-     * Para seleccionar entre varias opciones predeterminadas. La opción inicial es "Casa Central".
-     */
-    private Spinner dropdown;
-    /**
      * Se conecta a la base de datos de Firestore.
      */
     private FirebaseFirestore db;
@@ -54,12 +51,6 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_activity);
 
-        dropdown = findViewById(R.id.spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.headquarters, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        dropdown.setAdapter(adapter);
-
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
     }
@@ -74,27 +65,28 @@ public class RegisterActivity extends AppCompatActivity {
         EditText telephone = (EditText) findViewById(R.id.registerPhone);
         EditText password = (EditText) findViewById(R.id.registerPassword);
         EditText password2 = (EditText) findViewById(R.id.registerPasswordConfirm);
+        AutoCompleteTextView dropdown = (AutoCompleteTextView) findViewById(R.id.dropdown);
 
         if(!password.getText().toString().equals(password2.getText().toString())){
-            Toast.makeText(getApplicationContext(), "Passwords don't match", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.passwordsDontMatch, Toast.LENGTH_SHORT).show();
             password.setText(null);
             password2.setText(null);
         }
         else if(!isValidEmailAddress(email.getText().toString())){
-            Toast.makeText(getApplicationContext(), "Invalid email address", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.invalidEmailAddress, Toast.LENGTH_SHORT).show();
         }
         else {
             String username_str = username.getText().toString();
             String mail = email.getText().toString();
             int phone = Integer.parseInt(telephone.getText().toString());
             String pass = password.getText().toString();
-            String campus = dropdown.getSelectedItem().toString();
+            String campus = dropdown.getText().toString();
 
             mAuth.createUserWithEmailAndPassword(mail, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(getApplicationContext(),"¡Cuenta creada correctamente!",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),R.string.accountCreated,Toast.LENGTH_SHORT).show();
                         User user = new User(mail, phone, campus, username_str);
                         db.collection("users")
                                 .add(user)
@@ -107,7 +99,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(getApplicationContext(),"Ya hay una cuenta con ese correo",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(),R.string.unavailableEmail,Toast.LENGTH_SHORT).show();
                                     }
                                 });
                         startActivity(new Intent(RegisterActivity.this, LoginActivity.class));

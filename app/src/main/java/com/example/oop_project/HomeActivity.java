@@ -8,19 +8,30 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.example.oop_project.main.CreateActivity;
-import com.example.oop_project.main.MainActivity;
-import com.example.oop_project.main.ProfileActivity;
+import com.example.oop_project.main.CreateFragment;
+import com.example.oop_project.main.MainFragment;
+import com.example.oop_project.main.ProfileFragment;
+import com.example.oop_project.main.SearchFragment;
+import com.example.oop_project.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Clase que muestra la barra inferior de la aplicación
@@ -29,15 +40,16 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
     /**
      * Actividad con las confesiones. Feed de la aplicación.
      */
-    MainActivity firstActivity = new MainActivity();
+    MainFragment mainFragment = new MainFragment();
     /**
      * Segunda actividad donde se escriben las confesiones.
      */
-    CreateActivity createActivity = new CreateActivity();
+    SearchFragment searchFragment = new SearchFragment();
+    CreateFragment createFragment = new CreateFragment();
     /**
      * Última actividad para cerrar sesión.
      */
-    ProfileActivity profileActivity = new ProfileActivity();
+    ProfileFragment profileFragment = new ProfileFragment();
     /**
      * Barra inferior.
      */
@@ -46,6 +58,10 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
      * Variable booleana para cerrar la aplicación. Se debe apretar dos veces el botón de retroceso para cerrar la aplicación.
      */
     boolean doubleBackToExitPressedOnce = false;
+    public static FirebaseUser user;
+    public static FirebaseFirestore db;
+    public static String email;
+    public static User profile;
 
     /**
      * Método inicial cuando se crea la aplicación.
@@ -55,9 +71,15 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        db = FirebaseFirestore.getInstance();
+        email = user.getEmail();
+        getUsersInfo();
+
         bottomNavigationView = findViewById(R.id.home_navigator);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-        loadFragment(firstActivity);
+        loadFragment(mainFragment);
     }
 
     /**
@@ -68,13 +90,16 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if (R.id.firstActivity == item.getItemId()) {
-            loadFragment(firstActivity);
+            loadFragment(mainFragment);
+        }
+        if (R.id.searchActivity == item.getItemId()) {
+            loadFragment(searchFragment);
         }
         if (R.id.secondActivity == item.getItemId()) {
-            loadFragment(createActivity);
+            loadFragment(createFragment);
         }
         if (R.id.thirdActivity == item.getItemId()) {
-            loadFragment(profileActivity);
+            loadFragment(profileFragment);
         }
         return true;
     }
@@ -93,7 +118,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
      */
     public void onBackPressed() {
         Fragment fragment = getVisibleFragment();
-        if (fragment instanceof MainActivity) {
+        if (fragment instanceof MainFragment) {
             if (doubleBackToExitPressedOnce) {
                 Intent intent = new Intent(Intent.ACTION_MAIN); // Esta seccion es para cerrar la app sin doble verificación
                 intent.addCategory(Intent.CATEGORY_HOME);
@@ -102,7 +127,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
                 return;
             }
             doubleBackToExitPressedOnce = true;
-            Toast.makeText(this, "Presiona atrás de nuevo para salir", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.backConfirm, Toast.LENGTH_SHORT).show();
             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -110,7 +135,8 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
                 }
             }, 2000);
         } else {
-            loadFragment(firstActivity);
+            bottomNavigationView.setSelectedItemId(R.id.firstActivity);
+            loadFragment(mainFragment);
         }
     }
 
@@ -126,5 +152,43 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
                 return fragment;
         }
         return null;
+    }
+
+    public static FirebaseUser getUser() {
+        return user;
+    }
+
+    public static FirebaseFirestore getDb() {
+        return db;
+    }
+
+    public static String getEmail() {
+        return email;
+    }
+
+    public static User getProfile() {
+        return profile;
+    }
+
+    private void getUsersInfo() {
+        db.collection("users")
+                .whereEqualTo("email", email)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if (email.equals(document.getData().get("email"))) {
+                                    Map<String, Object> data = document.getData();
+                                    profile = new User(email, Integer.parseInt(data.get("phone").toString()),
+                                            (String) data.get("campus"), (String) data.get("username"));
+                                }
+                            }
+                        } else {
+                            Log.d("error", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
     }
 }

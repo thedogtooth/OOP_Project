@@ -4,18 +4,27 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="noEmail">Enter an email</string>
+    <string name="noPassword">Enter a password</string>
+    <string name="wrongLogin">Email or password are incorrect</string>
     <string name="forgotPass">Forgot Password?</string>
     <string name="noAccount">Don\'t have an account?</string>
     <string name="signUp">Sign Up</string>
     <string name="username">Username</string>
     <string name="phone">Phone</string>
     <string name="registerButton">Sign Up</string>
+    <string name="passwordsDontMatch">Passwords don\'t match</string>
+    <string name="invalidEmailAddress">Invalid email address</string>
+    <string name="unavailableEmail">There\'s already an account with this email</string>
+    <string name="accountCreated">Account created!</string>
     <string name="score">Score</string>
     <string name="comments">Comments</string>
     <string name="start">Start</string>
     <string name="create">Create</string>
     <string name="profile">Profile</string>
     <string name="signOut">Sign Out</string>
+    <string name="signedOut">You were signed out!</string>
+    <string name="dialogMessageSignOut">Are you sure?</string>
     <string name="feed">Confessions</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
@@ -30,6 +39,14 @@
     <string name="yesterday">Yesterday</string>
     <string name="repeatPassword">Repeat Password</string>
     <string name="emptyConfession">Write somethin smh</string>
+    <string name="backConfirm">Press back again to exit</string>
+    <string name="headquarter">Sede</string>
+    <string name="helloWorld">Hello World</string>
+    <string name="settings">Settings</string>
+    <string name="loading">Loading…</string>
+    <string name="publishedConfession">Your confession was published!</string>
+    <string name="search">Search</string>
+    <string name="anonConfession">Anon Confession</string>
 
     <string-array name="headquarters">
         <item>Casa Central</item>

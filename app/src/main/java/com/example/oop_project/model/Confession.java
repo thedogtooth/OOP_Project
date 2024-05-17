@@ -42,7 +42,6 @@ public class Confession {
      * Instancia para operar sobre la base de datos.
      */
     private FirebaseFirestore db;
-
     /**
      * Constructor vacío. Al parecer es importante.
      */
@@ -61,7 +60,6 @@ public class Confession {
         this.email = email;
         this.confession = confession;
         this.isAnon = isAnon;
-        this.likes = 0; this.dislikes = 0;
         this.time = time;
         db = FirebaseFirestore.getInstance();
     }
@@ -71,17 +69,13 @@ public class Confession {
      * @param email
      * @param confession
      * @param isAnon
-     * @param likes
-     * @param dislikes
      * @param time
      * @param document
      */
-    public Confession(String email, String confession, boolean isAnon, int likes, int dislikes, Timestamp time, String document) {
+    public Confession(String email, String confession, boolean isAnon, Timestamp time, String document) {
         this.email = email;
         this.confession = confession;
         this.isAnon = isAnon;
-        this.likes = likes;
-        this.dislikes = dislikes;
         this.time = time;
         this.document = document;
         db = FirebaseFirestore.getInstance();
@@ -124,8 +118,6 @@ public class Confession {
      */
     public void setLikes(int likes) {
         this.likes = likes;
-        db.collection("confessions").document(getDocument()).update(
-                "likes", this.likes);
     }
 
     /**
@@ -134,8 +126,6 @@ public class Confession {
      */
     public void setDislikes(int dislikes) {
         this.dislikes = dislikes;
-        db.collection("confessions").document(getDocument()).update(
-                "dislikes", this.dislikes);
     }
     public void setTime(Timestamp time) {
         this.time = time;

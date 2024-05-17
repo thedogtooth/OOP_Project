@@ -10,5 +10,6 @@
     <color name="primaryColorLight">#015E9C</color>
     <color name="primaryColorDark">#003359</color>
 
+    <color name="bottomNavigationColor">#0099FF</color>
 
 </resources>

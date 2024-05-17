@@ -4,21 +4,28 @@
     <string name="email">Email</string>
     <string name="password">Contraseña</string>
     <string name="login">Iniciar Sesión</string>
+    <string name="noEmail">Ingrese un correo</string>
+    <string name="noPassword">Ingrese una contraseña</string>
+    <string name="wrongLogin">Correo o contraseña incorrectos</string>
     <string name="forgotPass">¿Olvidaste tu contraseña?</string>
     <string name="noAccount">¿No tienes cuenta?</string>
     <string name="signUp">Regístrate</string>
     <string name="username">Nombre de usuario</string>
     <string name="phone">Teléfono</string>
     <string name="registerButton">Registrarse</string>
+    <string name="passwordsDontMatch">Contraseñas no coinciden</string>
+    <string name="invalidEmailAddress">Formato de email inválido</string>
+    <string name="unavailableEmail">Ya hay una cuenta con ese correo</string>
+    <string name="accountCreated">¡Cuenta creada correctamente!</string>
     <string name="score">Calificación</string>
     <string name="comments">Comentarios</string>
     <string name="start">Inicio</string>
     <string name="create">Crear</string>
     <string name="profile">Perfil</string>
     <string name="signOut">Cerrar sesión</string>
-    <string name="dialogTitle">¿Quieres cerrar sesión?</string>
+    <string name="signedOut">¡Sesión cerrada exitosamente!</string>
+    <string name="dialogMessageSignOut">¿Estás seguro?</string>
     <string name="feed">Confesiones</string>
-    <string name="dialogMessage"></string>
     <string name="ok">Sí</string>
     <string name="cancel">Cancelar</string>
     <string name="upload">Publicar</string>
@@ -32,6 +39,14 @@
     <string name="yesterday">Ayer</string>
     <string name="repeatPassword">Repetir Contraseña</string>
     <string name="emptyConfession">Escribe algo po</string>
+    <string name="backConfirm">Presiona atrás de nuevo para salir</string>
+    <string name="headquarter">Sede</string>
+    <string name="helloWorld">Hola Mundo</string>
+    <string name="settings">Preferencias</string>
+    <string name="loading">Cargando…</string>
+    <string name="publishedConfession">¡Confesión publicada!</string>
+    <string name="search">Buscar</string>
+    <string name="anonConfession">Confesión anónima</string>
 
     <string-array name="headquarters">
         <item>Casa Central</item>
