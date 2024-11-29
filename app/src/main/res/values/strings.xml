@@ -55,4 +55,7 @@
         <item>Viña del Mar</item>
         <item>Concepción</item>
     </string-array>
+    <string name="deleteAccount">Borrar Cuenta</string>
+    <string name="dialogMessageDeleteAccount">¿Quieres borrar esta cuenta?</string>
+    <string name="accountDeleted">Cuenta Borrada</string>
 </resources>

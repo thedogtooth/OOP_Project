@@ -6,8 +6,10 @@ package com.example.oop_project.start;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -47,6 +49,15 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         homeActivity = new Intent(LoginActivity.this, HomeActivity.class);
+
+        EditText passwordText = findViewById(R.id.loginPassword);
+        passwordText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                login(null);
+                return false;
+            }
+        });
     }
 
     /**
@@ -58,7 +69,9 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
             startActivity(homeActivity);
-        } else Log.i("Signed Out", "Haven't logged in");
+        } else {
+            Log.i("Signed Out", "Haven't logged in");
+        }
     }
 
     /**
@@ -89,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d("si", "signInWithEmail:success");
+                            Log.d("Success", "signInWithEmail:success");
                             mAuth.getCurrentUser();
                             startActivity(homeActivity);
                         } else {

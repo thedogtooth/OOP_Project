@@ -7,6 +7,7 @@ package com.example.oop_project.model;
  * Clase para establecer cada usuario de la aplicación.
  */
 public class User {
+    private String Id;
     /**
      * Email del usuario.
      */
@@ -27,6 +28,10 @@ public class User {
      * Nombre de usuario.
      */
     private String username;
+    /**
+     * Variable booleana para saber si el usuario fue eliminado.
+     */
+    private boolean deleted;
 
     /**
      * Constructor vacío.
@@ -45,13 +50,6 @@ public class User {
         this.password = password;
     }
 
-    /**
-     * Constructor para crear cada usuario. Cada objeto se sube a la base de datos.
-     * @param email
-     * @param phone
-     * @param campus
-     * @param username
-     */
     public User(String email, int phone, String campus, String username){
         this.email = email;
         this.phone = phone;
@@ -59,6 +57,25 @@ public class User {
         this.username = username;
     }
 
+    /**
+     * Constructor para crear cada usuario. Cada objeto se sube a la base de datos.
+     * @param email
+     * @param phone
+     * @param campus
+     * @param username
+     */
+    public User(String Id, String email, int phone, String campus, String username){
+        this.Id = Id;
+        this.email = email;
+        this.phone = phone;
+        this.campus = campus;
+        this.username = username;
+    }
+
+    public String getId(){return Id;}
+    public void setId(String Id){
+        this.Id = Id;
+    }
     public String getUsername(){return username;}
     public void setUsername(String username){
         this.username = username;
@@ -82,5 +99,11 @@ public class User {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+    public boolean getDeleted(){
+        return deleted;
+    }
+    public void setDeleted(boolean deleted){
+        this.deleted = deleted;
     }
 }

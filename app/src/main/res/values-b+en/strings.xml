@@ -40,7 +40,7 @@
     <string name="repeatPassword">Repeat Password</string>
     <string name="emptyConfession">Write somethin smh</string>
     <string name="backConfirm">Press back again to exit</string>
-    <string name="headquarter">Sede</string>
+    <string name="headquarter">Headquarter</string>
     <string name="helloWorld">Hello World</string>
     <string name="settings">Settings</string>
     <string name="loading">Loading…</string>
@@ -55,4 +55,7 @@
         <item>Viña del Mar</item>
         <item>Concepción</item>
     </string-array>
+    <string name="deleteAccount">Delete Account</string>
+    <string name="dialogMessageDeleteAccount">Delete Account?</string>
+    <string name="accountDeleted">Account Deleted</string>
 </resources>

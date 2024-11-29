@@ -181,7 +181,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 if (email.equals(document.getData().get("email"))) {
                                     Map<String, Object> data = document.getData();
-                                    profile = new User(email, Integer.parseInt(data.get("phone").toString()),
+                                    profile = new User(document.getId(),email, Integer.parseInt(data.get("phone").toString()),
                                             (String) data.get("campus"), (String) data.get("username"));
                                 }
                             }

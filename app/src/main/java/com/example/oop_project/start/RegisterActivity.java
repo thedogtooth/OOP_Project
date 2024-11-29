@@ -60,6 +60,7 @@ public class RegisterActivity extends AppCompatActivity {
      * @param view Vista actual de la actividad.
      */
     public void register(View view){
+        Log.e("Error", "Esto pasa");
         EditText username = (EditText) findViewById(R.id.registerUsername);
         EditText email = (EditText) findViewById(R.id.registerEmail);
         EditText telephone = (EditText) findViewById(R.id.registerPhone);

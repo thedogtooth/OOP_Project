@@ -94,9 +94,7 @@ public class MainFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         swipeRefreshLayout = mView.findViewById(R.id.swiperefresh);
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-            loadPosts();
-        });
+        swipeRefreshLayout.setOnRefreshListener(this::loadPosts);
         return mView;
     }
 
@@ -119,7 +117,6 @@ public class MainFragment extends Fragment {
      * Para cargar los posts.
      */
     private void loadPosts() {
-        Log.i("Mensaje", "Hola");
         db.collection("confessions")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
